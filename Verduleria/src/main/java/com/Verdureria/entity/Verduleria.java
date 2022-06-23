@@ -8,34 +8,50 @@ package com.Verdureria.entity;
  *
  * @author madri
  */
-
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 //Definimos de que tipo es nuestra clase, en este caso una entidad.
 @Entity
 //Definir la tabla que hay en la bd en este caso se llama personas.
-@Table(name = "verduleria")
-public class Verduleria implements Serializable{
+@Table(name = "Verduleria")
+
+public class Verduleria implements Serializable {
+
     
-    //Creamos los atributos que asemejen la tabla (persona).	
-    //Definimos la llame primaria con @id
+    
+    
     @Id
-	
     //Con esta valor decimos que nuestra id va a obtener un valor autoincremental.
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     private String nombre;
     private int cantidad;
     private String tipo;
     private double precio;
-
+    
+    @ManyToOne
+    @JoinColumn(name = "id_sede")
+    //Entonces apuntamos a otra entidad en esta caso "Sede"
+    private Sede sede;
+    
     //Creamos getters y setters
+      
+    public Sede getSede() {
+        return sede;
+    }
+
+    public void setSede(Sede sede) {
+        this.sede = sede;
+    }
+
     public int getId() {
         return id;
     }
@@ -75,7 +91,5 @@ public class Verduleria implements Serializable{
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    
-            
+
 }

@@ -4,13 +4,18 @@
  */
 package com.Verdureria.controller;
 
+import com.Verdureria.entity.Sede;
 import com.Verdureria.entity.Verduleria;
+import com.Verdureria.service.ISedeService;
 import com.Verdureria.service.IVerduleriaService;
+import com.Verdureria.service.SedeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -25,6 +30,11 @@ public class VerduleriaController {
     @Autowired
     //El controller utiliza el servicio, en este caso personaService
     private IVerduleriaService verduleriaService;
+    
+    //Hacemos inyeccion de dependencias
+    @Autowired
+    //El controller utiliza el servicio, en este caso personaService
+    private ISedeService sedeService;
 
     /*El GetMapping crea la ruta, entonces al escribir localhost/persona 
     nos ejecuta el metodo
@@ -52,4 +62,35 @@ public class VerduleriaController {
         //Aqui retornamos un html que se llama verduleria.
         return "verduleria";
     }
+    
+    @GetMapping("/VerduleriaN")
+    //Nuevo metodo para crear una nueva verdura
+    public String crearVerduleria(Model model){
+        
+        List<Sede> listaSedes = sedeService.listSede();        
+        //Aqui hay que crear un objeto nuevo para nuestro html
+        model.addAttribute("verduleria", new Sede());       
+        //Aqui ocupamos jalar algun foreign key de la tabla sedes
+        model.addAttribute("sedes", listaSedes);
+        return "crear";
+    }
+    
+    @GetMapping("/save")
+    public String guardarVerdura(@ModelAttribute Verduleria verduleria){
+        //Con esto lo guardo en la bd
+        verduleriaService.saveVerduleria(verduleria);
+        
+        //Aqui quiero que me redirija a otro get mapping
+        return "redirect:/verduleria";
+    }
+    
+    @GetMapping("/editVerduleria/{id}")
+    public String editarVerduleria(@PathVariable("id") int idVerduleria, Model model){
+        Verduleria verduleria = verduleriaService.getVerduleriaById(idVerduleria);
+        List<Sede> listaSede = sedeService.listSede();
+        model.addAttribute("verduleria", verduleria);
+        model.addAttribute("sedes", listaSede);
+        return "crear";
+    }
 }
+

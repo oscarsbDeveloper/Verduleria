@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Verduleria</title>
+        <title>Persona</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </head>
     <body>
         
@@ -22,15 +24,12 @@
                     clase persona, ademas de que le agregamos, editar y eliminar
                     -->
                     <!-- th = table head, titulos de la tabla-->
-                    
-                    <th scope="col">Nombre </th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Tipo de Verdura</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Sede</th>
-                    
-                    
-                    
+                    <th scope="col">id</th>
+                    <th scope="col">nombre</th>
+                    <th scope="col">cantidad</th>
+                    <th scope="col">tipo</th>
+                    <th scope="col">precio</th>
+                    <th scope="col">idSede</th>
                 </tr>
             </thead>
             
@@ -52,7 +51,7 @@
                     <td th:text="${user.getCantidad}"></td>
                     <td th:text="${user.getTipo}"></td>
                     <td th:text="${user.getPrecio}"></td>
-                    <td th:text="${user.getSede}"></td>
+                    <td th:text="${user.getSede.getSede}"></td>
                     
                     <!-- Aqui agregamos un hipervinculo donde le pasamos el 
                     url que queremos llamar para ejecutar algun metodo
@@ -62,7 +61,7 @@
                     <td>
                         <!-- Este es el metodo editar persona en cual le 
                         pasabamos un id, etc -->
-                        <a th:href="@{/edit/{id}(id=${user.getId})}">Edit</a>
+                        <a th:href="@{/editSede/{id}(id=${user.getId})}">Edit</a>
                     <td>
                     <td>
                         <!-- Este es el metodo delete persona en cual le 
