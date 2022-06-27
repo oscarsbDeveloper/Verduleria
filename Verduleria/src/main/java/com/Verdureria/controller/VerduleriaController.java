@@ -63,13 +63,13 @@ public class VerduleriaController {
         return "verduleria";
     }
     
-    @GetMapping("/VerduleriaN")
+    @GetMapping("/verduleriaN")
     //Nuevo metodo para crear una nueva verdura
     public String crearVerduleria(Model model){
         
         List<Sede> listaSedes = sedeService.listSede();        
         //Aqui hay que crear un objeto nuevo para nuestro html
-        model.addAttribute("verduleria", new Sede());       
+        model.addAttribute("verduleria", new Verduleria());       
         //Aqui ocupamos jalar algun foreign key de la tabla sedes
         model.addAttribute("sedes", listaSedes);
         return "crear";

@@ -1,75 +1,86 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Persona</title>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
     </head>
     <body>
-        
-        <!-- Esta etiqueta h1 sirve para ponerle un titulo a nuestra tabla
-        
-            En el text le estamos poniendo nuestra "Variable" que se va a 
-            llamar titulo, entonces en el controlador nosotros le devolvemos al
-            front end, un titulo que es ese mismo.En nuestro caso 
-            "Tabla personas"-->
-        <h1 th:text="${titulo}"></h1>
-        
-        <table class="table table-dark table-striped">
-            <thead class="thead-dark">
-                
-                <!-- tr = table row, o sea una fila -->
-                <tr>
-                    <!-- Todas estas son las columnas que tenemos en nuestra
-                    clase persona, ademas de que le agregamos, editar y eliminar
-                    -->
-                    <!-- th = table head, titulos de la tabla-->
-                    <th scope="col">id</th>
-                    <th scope="col">nombre</th>
-                    <th scope="col">cantidad</th>
-                    <th scope="col">tipo</th>
-                    <th scope="col">precio</th>
-                    <th scope="col">idSede</th>
-                </tr>
-            </thead>
-            
-            <!-- Aqui comienza el cuerpo de nuestra tabla -->
-            <tbody>
-                
-            <!-- Aqui vamos a usar un th:each, puede verse como un for un while
-            (ciclo), decimos que por cada usuario en personas (variable que 
-            obtenemos del controlador) voy hacer una fila donde la informacion
-            va a ser la siguiente: -->
-            <th:block th:each="user : ${verduleria}">
-                <tr>
-                    
-                    <!-- Entonces agregamos un texto que es sustituido, por user 
-                    .getnombre Entonces, en la clase persona en entity tenemos 
-                    un metodo que nos devuelve el nombre de la persona y asi
-                    para las demas de la variables.-->
-                    <td th:text="${user.getNombre}"></td>
-                    <td th:text="${user.getCantidad}"></td>
-                    <td th:text="${user.getTipo}"></td>
-                    <td th:text="${user.getPrecio}"></td>
-                    <td th:text="${user.getSede.getSede}"></td>
-                    
-                    <!-- Aqui agregamos un hipervinculo donde le pasamos el 
-                    url que queremos llamar para ejecutar algun metodo
-                    
-                    Basicamente aqui mapeamos el url con el que vamos a hacer
-                    ciertas funciones en nuestro controllador-->
-                    <td>
-                        <!-- Este es el metodo editar persona en cual le 
-                        pasabamos un id, etc -->
-                        <a th:href="@{/editSede/{id}(id=${user.getId})}">Edit</a>
-                    <td>
-                    <td>
-                        <!-- Este es el metodo delete persona en cual le 
-                        pasabamos un id, etc -->
-                        <a th:href="@{/delete/{id}(id=${user.getId})}">Delete</a>
-                    </td> 
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
+        <div class="container">
+
+            <div class="card-header bg-black text-white"> </div>
+            <div class="card-body">
+
+                <!-------------------Esto es un Formulario--------------- -->
+                <div class="container">
+                    <form th:object = "${verduleria}"
+                          th:action="@{/save}"
+                          method="POST">
+
+                        <!--------------------------- -->
+                        <div class="form-group mb-3 row">
+
+                        </div>
+
+                        <!---------------------------------------------------------------------------------------------------------------------------- -->
+                        <input type="hidden" th:field="*{id}">
+                        <div class="form-group mb-3 row">
+                            <label class="col-md-2 col-form-label" for="nombre">Nombre</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-control-sm col-md-6" th:field="*{nombre}" placeholder= "Nombre Cliente" id="nombres" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+
+                        <!---------------------------------------------------------------------------------------------------------------------------- -->
+                        <div class="form-group mb-3 row">
+                            <label class="form-control-sm col-md-2 col-form-label" for="cantidad">Cantidad</label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{cantidad}" class="form-control form-control-sm col-md-6" placeholder= "Cantidad" id="cantidad" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+
+                        <!---------------------------------------------------------------------------------------------------------------------------- -->
+                        <div class="form-group mb-3 row">
+                            <label class="form-control-sm col-form-label col-md-2" for="tipo">Tipo</label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{tipo}" class="form-control form-control-sm col-md-6" placeholder= "Tipo" id="tipo" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+
+                        <!---------------------------------------------------------------------------------------------------------------------------- -->
+                        <div class="form-group mb-3 row">
+                            <label class="form-control-sm col-form-label col-md-2" for="precio">Precio</label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{precio}" class="form-control form-control-sm col-md-6" placeholder= "Precio" id="precio" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+
+                        <!---------------------------------------------------------------------------------------------------------------------------- -->
+             
+                        <!---------------------------------------------------------------------------------------------------------------------------- -->
+                         <div class="form-group mb-3 row">
+                            <label class="form-control-sm col-form-label col-md-2" for="sede">Sede</label>
+                            <div class="col-sm-10">
+                                <select th:field="*{sede}" class="form-control form-control-sm col-md-6" id="sede" aria-describedby="emailHelp">
+                                    <option th:each="x:${sede}"
+                                            th:value="${x.id_sede}"
+                                            th:text="${x.id_sede}"/>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!--------------------------------------------------------------------------- -->
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-primary" value="Guardar" type="submit">Submit</button>
+                        </div>
+                        <!--------------------------------------------------------------------------- -->
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
