@@ -16,13 +16,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class SedeService implements ISedeService{
     
-    //Autowired para la inyeccion de dependencias, en este caso Pais
+    //Autowired para la inyeccion de dependencias, en este caso Sede
     @Autowired
     private SedeRepository sedeRepository;
 
     @Override
     public List<Sede> listSede() {
-        //Aqui devolvemos una lista de paises de paisRepository.
+        //Aqui devolvemos una lista de sede de sedeRepository.
         return (List<Sede>) sedeRepository.findAll();
     }
 }
