@@ -31,7 +31,6 @@ public class Verduleria implements Serializable {
     //Con esta valor decimos que nuestra id va a obtener un valor autoincremental.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String nombre;
     private int cantidad;
     private String tipo;
