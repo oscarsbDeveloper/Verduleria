@@ -92,12 +92,5 @@ public class VerduleriaController {
         model.addAttribute("sedes", listaSede);
         return "crear";
     }
-    
-    @GetMapping("/delete/{id}")
-    public String eliminarPersona(@PathVariable("id")Integer idVerdura){
-        verduleriaService.delete(idVerdura);
-        return "redirect:/persona";
-    } 
-    
 }
 
